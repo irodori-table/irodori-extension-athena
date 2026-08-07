@@ -462,7 +462,7 @@
   },
   "source": {
     "marketplaceId": "irodori.athena",
-    "repository": "https://github.com/hjosugi/irodori-extension-athena",
+    "repository": "https://github.com/irodori-table/irodori-extension-athena",
     "knowledgeEngineStatus": "recognized_no_connector",
     "adapter": null,
     "adapterSha256": null,
