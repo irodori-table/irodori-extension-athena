@@ -1083,7 +1083,7 @@ dependencies = [
 
 [[package]]
 name = "irodori-extension-athena"
-version = "0.1.4"
+version = "0.1.5"
 dependencies = [
  "aws-config",
  "aws-credential-types",

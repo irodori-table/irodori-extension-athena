@@ -3,7 +3,7 @@
   "manifestVersion": 1,
   "id": "irodori.athena",
   "name": "Athena Connector",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "publisher": "irodori",
   "description": "Athena Connector contributes the Athena database connector through the native connector ABI.",
   "license": "MIT OR 0BSD",
