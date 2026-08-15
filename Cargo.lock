@@ -1075,8 +1075,8 @@ checksum = "6a756c3fac73139e83f14c2d742155dd2b78d3ee56597b419a0579b7bdd6dd78"
 
 [[package]]
 name = "irodori-connector-abi"
-version = "0.7.8"
-source = "git+https://github.com/irodori-table/irodori-kit?tag=v0.7.8#e03c4ad2fd6f5237aa9dd44cb1825ea95c058f02"
+version = "0.8.1"
+source = "git+https://github.com/irodori-table/irodori-kit?tag=v0.8.1#ee9f65cd15e2bc63167bce0f18ab8e7480b138c7"
 dependencies = [
  "serde_json",
 ]
