@@ -26,7 +26,14 @@ crate-type = ["cdylib", "rlib"]
 irodori-connector-abi = { git = "https://github.com/irodori-table/irodori-kit", tag = "v0.7.8" }
 aws-config = "1"
 aws-credential-types = "1"
-aws-sdk-athena = "1"
+# `default-features = false` with an explicit HTTPS client keeps the SDK off
+# its legacy rustls 0.21 path, which drags in rustls-webpki 0.101 and with it
+# RUSTSEC-2026-0098 and RUSTSEC-2026-0104. The dynamodb connector already
+# pins it this way; athena did not, and cargo-audit caught the difference.
+aws-sdk-athena = { version = "1", default-features = false, features = [
+    "default-https-client",
+    "rt-tokio",
+] }
 aws-types = "1"
 serde_json = "1"
 tokio = { version = "1", features = ["rt-multi-thread", "time"] }
