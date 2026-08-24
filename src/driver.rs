@@ -362,16 +362,11 @@ impl AthenaConfig {
     }
 
     fn redact(&self, message: &str) -> String {
-        let endpoint = self.endpoint.as_deref().unwrap_or_default();
-        self.redaction_values.iter().fold(
-            message.replace(endpoint, "<athena-endpoint>"),
-            |message, secret| {
-                if secret.is_empty() {
-                    message
-                } else {
-                    message.replace(secret, "****")
-                }
-            },
+        abi::redact_endpoint(
+            message,
+            self.endpoint.as_deref().unwrap_or_default(),
+            "<athena-endpoint>",
+            &self.redaction_values,
         )
     }
 }
@@ -786,6 +781,23 @@ mod tests {
         let columns = vec!["id".to_string(), "name".to_string()];
         let row = vec![json!("id"), json!("name")];
         assert!(is_header_row(&columns, &row));
+    }
+
+    #[test]
+    fn redaction_leaves_a_message_intact_when_there_is_no_endpoint() {
+        // Athena normally resolves the regional endpoint, so `endpoint` is
+        // None for most profiles. Replacing an empty needle inserts the
+        // placeholder between every character, so every error message used to
+        // come back as "<athena-endpoint>q<athena-endpoint>u<athena-endpoint>…".
+        let config = AthenaConfig::from_request(&json!({
+            "profile": { "region": "us-east-1", "workgroup": "primary" }
+        }))
+        .expect("a region and a workgroup are a valid profile");
+        assert!(config.endpoint.is_none());
+        assert_eq!(
+            config.redact("query failed: access denied"),
+            "query failed: access denied"
+        );
     }
 
     #[test]
